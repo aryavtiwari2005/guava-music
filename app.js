@@ -16,10 +16,9 @@ const WebSocket = require('ws');
 const { v4: uuidv4 } = require('uuid');
 const ytSearch = require('youtube-search-without-api-key');
 var vidTitle = "";
-ffmpeg.setFfmpegPath("C:/Users/aryav/Desktop/Don't touch this file/ffmpeg/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe")
 
 const corsOptions = {
-    origin: ['https://guava-music.netlify.app', 'http://localhost:5500'],
+    origin: ['http://localhost:5500'],
     credentials: true,
     optionSuccessStatus: 200,
 };
@@ -78,8 +77,6 @@ async function puppeteerFunc(email, passwd, userid) {
         return false
     }
 }
-
-puppeteerFunc('badhatalaf@gmail.com', 'Faridabad51')
 
 async function fetchLikedMusic(page) {
     const likedMusicList = await page.waitForXPath(`//div[@aria-label="Liked Songs"]/div[2]/div[2]`)
