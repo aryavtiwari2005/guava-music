@@ -16,6 +16,7 @@ const WebSocket = require('ws');
 const { v4: uuidv4 } = require('uuid');
 const ytSearch = require('youtube-search-without-api-key');
 var vidTitle = "";
+ffmpeg.setFfmpegPath("C:/Users/aryav/Desktop/Don't touch this file/ffmpeg/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe")
 
 const corsOptions = {
     origin: ['http://localhost:5500'],
