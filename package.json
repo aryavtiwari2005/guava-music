@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-mutex": "^0.4.0",
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "miniget": "^4.2.3",
+    "puppeteer": "^21.0.3",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0",
+    "youtube-search-without-api-key": "^1.0.7",
+    "ytdl-core": "^4.11.5"
+  }
+}
