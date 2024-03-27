@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guava Music</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/castjs/5.2.0/cast.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="spotify-credentials">
+        <h2>Enter your spotify credentials:</h2>
+        <input type="text" placeholder="Email Id" id="email-id">
+        <input type="password" placeholder="Password" id="passwd">
+        <button>Import Music from Spotify</button>
+        <div id="cross">
+            <div class="line1"></div>
+            <div class="line2"></div>
+        </div>
+        <div class="progressText" style="margin-top: 10px; text-align: center;"></div>
+    </div>
+    <div class="main">
+        <div class="logo">
+            <img src="guava.png">
+            <h1>Guava Music</h1>
+        </div>
+        <div class="search-div">
+            <input type="text" placeholder="Search music!" id="search_input">
+            <button onclick="execute()" class="search-btn">
+                Search
+            </button>
+            <div class="settings">
+                <button id="shuffle-music"></button>
+                <!-- <button id="cast-media">Cast Music</button> -->
+                <!-- <div class="connectSpotify">
+                    <button id="connect-spotify" class="spotify-btn" style="display: none;">
+                        Import Music from Spotify
+                    </button>
+                    <img src="default-pfp.jpeg" id="spotify-pfp">
+                    <div class="profile-card">
+                        <div class="profile-name"></div>
+                        <button id="import-music" class="spotify-btn">Import Liked Music</button>
+                        <button id="logout-spotify" class="spotify-btn">Logout Spotify</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="searchingText"></div>
+        <div id="searches"></div>
+        <div class="recent-music">
+            <h2>Liked Music</h2>
+            <div id="recents"></div>
+        </div>
+        <div id="music">
+            <audio id="audio-element"></audio>
+        </div>
+    </div>
+    <div id="audio-player">
+        <div class="like-music">
+            <div class="before-like"><svg xmlns="http://www.w3.org/2000/svg" height="1.5em"
+                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <style>
+                        svg {
+                            fill: #ffffff
+                        }
+                    </style>
+                    <path
+                        d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z" />
+                </svg></div>
+            <div class="after-like"> <svg xmlns="http://www.w3.org/2000/svg" height="1.5em"
+                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <style>
+                        svg {
+                            fill: #f00000
+                        }
+                    </style>
+                    <path
+                        d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                </svg> </div>
+        </div>
+        <div class="seek-bar"></div> <span class="full-progress-bar"></span>
+        <div class="progress-bar"></div>
+        <button id="play-pause">
+            <div class="play"><svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                    viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <style>
+                        svg {
+                            fill: #ffffff
+                        }
+                    </style>
+                    <path
+                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                </svg></div>
+            <div class="pause"><svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                    viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <style>
+                        svg {
+                            fill: #ffffff
+                        }
+                    </style>
+                    <path
+                        d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z" />
+                </svg></div>
+        </button>
+        <div class="information">
+            <div class="music-name"></div>
+            <div class="time-info"></div>
+        </div>
+        <div class="thumbnail">
+            <img src="" id="thumbnail">
+        </div>
+    </div>
+    <div class="footer">
+        <button id="reset-data">Reset All Data</button>
+        <!-- <ol>
+            <li>If authenticating takes longer than 3 minutes in spotify import, try refreshing and logging in again
+            </li>
+            <li>If you have a chromecast device on the same network as yours, try refreshing the page for cast option to
+                appear</li>
+            <li>Cast does not work for mobile devices</li>
+            <li>You can import upto 3000 songs using import music from spotify</li>
+        </ol> -->
+    </div>
+</body>
+
+</html>

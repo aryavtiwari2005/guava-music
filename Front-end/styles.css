@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit');
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Outfit';
+    background-color: black;
+    overflow-x: hidden;
+}
+
+.spotify-credentials {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: max-content;
+    padding: 30px;
+    background-color: #333;
+    flex-direction: column;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.spotify-credentials #cross {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.spotify-credentials #cross div {
+    width: 20px;
+    height: 2px;
+    position: absolute;
+    background-color: white;
+}
+
+.spotify-credentials #cross .line1 {
+    transform: rotate(45deg);
+}
+
+.spotify-credentials #cross .line2 {
+    transform: rotate(-45deg);
+}
+
+.spotify-credentials button {
+    background-color: #1DB954;
+    outline: none;
+    color: #191414;
+    border: none;
+    width: max-content;
+    padding: 0 20px;
+    height: 50px;
+    font-family: 'Outfit';
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.spotify-credentials h2 {
+    margin: 0;
+}
+
+.spotify-credentials input {
+    font-family: 'Outfit';
+    width: 300px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+
+
+#spotify-pfp {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.profile-card .profile-name {
+    color: white;
+    font-size: 20px;
+}
+
+.profile-card {
+    background-color: #333;
+    border-radius: 10px;
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    transform: translateX(-75%);
+    z-index: 1001;
+}
+
+.profile-card button {
+    font-size: 16px !important;
+    height: 40px !important;
+    margin: 5px 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(10vh + 30px);
+    height: max-content;
+}
+
+#search_input {
+    margin: 20px;
+}
+
+#searches {
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.searchingText {
+    margin-left: 20px;
+    color: white;
+}
+
+.recent-music {
+    margin: 0 20px;
+    color: white;
+}
+
+.recent-music h2 {
+    margin: 0;
+}
+
+.settings {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#shuffle-music,
+#cast-media {
+    width: max-content;
+    height: 50px;
+    background-color: #333;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Outfit';
+    font-size: 18px;
+    color: white;
+    padding: 10px;
+    margin: 0 7px;
+    cursor: pointer;
+}
+
+#cast-media {
+    display: none;
+}
+
+.connectSpotify #connect-spotify img {
+    width: 20px;
+}
+
+#shuffle-music.list::before {
+    content: 'Playing in list';
+}
+
+#shuffle-music.shuffle::before {
+    content: 'Playing in shuffle';
+}
+
+#shuffle-music.loop::before {
+    content: 'Playing in loop';
+}
+
+p#song {
+    display: flex;
+    cursor: pointer;
+    background-color: #1c1c1c;
+    padding: 15px 10px;
+    padding-right: 30px;
+    margin: 3px 0;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.like-music {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.like-music .before-like,
+.like-music .after-like {
+    display: none;
+    cursor: pointer;
+}
+
+.yt_link_holder {
+    justify-self: flex-end;
+}
+
+div#recents {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+#music #audio-element {
+    display: none;
+}
+
+#audio-player {
+    height: 10vh;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: #1c1c1c;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+#audio-player #play-pause {
+    background: none;
+    outline: none;
+    border: none;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#audio-player #play-pause .pause {
+    display: none;
+}
+
+#audio-player .information {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    width: 30vw;
+    text-align: center;
+    margin-top: 5px;
+}
+
+img#thumbnail {
+    height: calc(10vh + 20px);
+    margin-top: 5px;
+}
+
+#audio-player .progress-bar {
+    background-color: white;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 100vw;
+    transform: scaleX(0);
+    transform-origin: left;
+    cursor: pointer;
+}
+
+#audio-player span.full-progress-bar {
+    z-index: 998;
+    background-color: rgb(161, 161, 161);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 100vw;
+}
+
+.seek-bar:hover~.progress-bar {
+    height: 20px;
+    transition: height 0.5s;
+}
+
+#audio-player .seek-bar {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 100vw;
+    cursor: pointer;
+}
+
+.logo {
+    height: max-content;
+    padding: 20px;
+    margin: 5px 0;
+    width: calc(100vw - 50px);
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+input#search_input {
+    font-family: 'Outfit';
+    width: 300px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+}
+
+.connectSpotify .spotify-btn {
+    background-color: #1DB954;
+    outline: none;
+    color: #191414;
+    border: none;
+    width: max-content;
+    padding: 0 20px;
+    height: 50px;
+    font-family: 'Outfit';
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+button.search-btn {
+    background-color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    font-family: 'Outfit';
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-div {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: calc(100vw - 40px);
+}
+
+.logo img {
+    filter: invert(1);
+    width: 80px;
+    margin: 0 20px;
+}
+
+.footer {
+    padding-bottom: 20vh;
+}
+
+.footer button {
+    margin: 0 20px;
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Outfit';
+}
+
+ol li {
+    color: white;
+    padding-right: 20px;
+}
+
+@media screen and (max-width: 650px) {
+
+    .settings {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        height: 120px;
+    }
+
+    #shuffle-music,
+    #cast-device {
+        width: max-content;
+        margin: 0;
+    }
+
+    .connectSpotify {
+        flex: 1 1 200px;
+        margin: 0;
+    }
+
+    .connectSpotify .profile-card {
+        transform: translateX(0%);
+    }
+
+    img#thumbnail {
+        height: 10vh;
+    }
+
+    .search-div {
+        flex-direction: column;
+        align-items: start;
+        padding: 10px;
+        width: calc(100vw - 40px);
+    }
+
+    .search-div {
+        margin: 0 10px;
+    }
+
+    .search-div #search_input {
+        margin: 10px 0px;
+    }
+
+    #searches {
+        margin: 0 20px;
+        margin-bottom: 10px;
+    }
+
+    #audio-player {
+        position: fixed;
+        width: calc(100vw - 10px);
+        padding: 0 10px;
+        justify-content: space-between;
+    }
+
+    .logo {
+        padding: 20px;
+        width: calc(100vw - 40px);
+    }
+
+    #audio-player .information {
+        position: static;
+        font-size: 12px;
+        width: 150px;
+    }
+
+    #audio-player .like-music {
+        position: static;
+    }
+}
