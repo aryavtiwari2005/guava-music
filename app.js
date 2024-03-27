@@ -4,6 +4,7 @@ const express = require('express');
 const https = require("https")
 const http = require('http')
 const app = express();
+const axios = require("axios");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const ffmpeg = require('fluent-ffmpeg');
@@ -16,10 +17,16 @@ const WebSocket = require('ws');
 const { v4: uuidv4 } = require('uuid');
 const ytSearch = require('youtube-search-without-api-key');
 var vidTitle = "";
-ffmpeg.setFfmpegPath("C:/Users/aryav/Desktop/Don't touch this file/ffmpeg/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe")
+
+const endpoint = "https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta";
+
+function sendResponse(res, status, message) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(status).send(JSON.stringify({ status, message }, null, 2));
+}
 
 const corsOptions = {
-    origin: ['http://localhost:5500'],
+    origin: '*',
     credentials: true,
     optionSuccessStatus: 200,
 };
@@ -28,6 +35,82 @@ app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, '/')));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true, limit: '3mb' }))
+
+app.get("/recommendmusic/", async (req, res) => {
+    const text = req.query.text;
+
+    if (!text) {
+        sendResponse(res, 400, "Please enter text parameter");
+        return;
+    }
+
+    try {
+        const response = await axios.post(
+            endpoint,
+            {
+                data: {
+                    message: text,
+                },
+            },
+            {
+                headers: {
+                    Host: "us-central1-chat-for-chatgpt.cloudfunctions.net",
+                    Connection: "keep-alive",
+                    Accept: "*/*",
+                    "User-Agent":
+                        "com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5",
+                    "Accept-Language": "en",
+                    "Content-Type": "application/json; charset=UTF-8",
+                },
+            }
+        );
+
+        const result = response.data.result.choices[0].text;
+        sendResponse(res, 200, result);
+    } catch (error) {
+        console.log(error)
+        sendResponse(res, 403, "Error connecting to openai");
+    }
+});
+
+app.post("/recommendmusic/", async (req, res) => {
+    const text = req.body.text;
+    console.log(text)
+
+    if (!text) {
+        sendResponse(res, 400, "Please enter text parameter");
+        return;
+    }
+
+    try {
+        const response = await axios.post(
+            endpoint,
+            {
+                data: {
+                    message: text,
+                },
+            },
+            {
+                headers: {
+                    Host: "us-central1-chat-for-chatgpt.cloudfunctions.net",
+                    Connection: "keep-alive",
+                    Accept: "*/*",
+                    "User-Agent":
+                        "com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5",
+                    "Accept-Language": "en",
+                    "Content-Type": "application/json; charset=UTF-8",
+                },
+            }
+        );
+
+        const result = response.data.result.choices[0].text;
+        console.log(result)
+        const video = await ytSearch.search(`${result} lyrics`)
+        sendResponse(res, 200, video[0]);
+    } catch (error) {
+        sendResponse(res, 403, "Error connecting to openai");
+    }
+});
 
 var likedMusics = {}
 async function puppeteerFunc(email, passwd, userid) {

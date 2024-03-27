@@ -1,1 +1,6 @@
-node_modules
+/node_modules
+.gitignore
+.env
+/ssls
+*.mp3
+*.mp4
